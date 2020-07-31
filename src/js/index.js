@@ -1,23 +1,27 @@
 require("@babel/polyfill");
 import Search from "./model/Search";
-
+import { domElements } from "./view/base";
+import * as searchView from "./view/SearchView";
 const state = {};
 
 const controlSearch = async () => {
   // 1) Вэбээс хайлтын түлхүүр үгийг гаргаж авна
-  const query = "pizza";
+  const query = searchView.getInput();
   if (query) {
     // 2) Шинээр хайлтын обьектыг үүсгэж өгнө
     state.search = new Search(query);
     // 3) Хайлт хийхэд зориулж UI г бэлтгэнэ.
+    searchView.clearSearchQuery();
+    searchView.clearSearchResult();
     // 4)  Хайтыг гүйцэтгэнэ
     await state.search.doSearch();
     //5) Хайлтын үр дүнг дэлгэцэнд үзүүлнэ.
-    console.log(state.search.result);
+    if (state.search.result === undefined) alert("Хайлт илэрцгүй...");
+    else searchView.renderRecipes(state.search.result);
   }
 };
 
-document.querySelector(".search").addEventListener("submit", (e) => {
+domElements.searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   controlSearch();
 });

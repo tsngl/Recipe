@@ -6,10 +6,14 @@ export default class Search {
     this.query = query;
   }
   async doSearch() {
-    let result = await axios(
-      "https://forkify-api.herokuapp.com/api/search?q=" + this.query
-    );
-    this.result = result.data.recipes;
-    return this.result;
+    try {
+      let result = await axios(
+        "https://forkify-api.herokuapp.com/api/search?q=" + this.query
+      );
+      this.result = result.data.recipes;
+      return this.result;
+    } catch (error) {
+      console.log("Алдаа гарлаа : " + error);
+    }
   }
 }
