@@ -2,6 +2,8 @@ require("@babel/polyfill");
 import Search from "./model/Search";
 import { domElements, renderLoader, clearLoader } from "./view/base";
 import * as searchView from "./view/SearchView";
+import Recipe from "./model/Recipe";
+
 const state = {};
 
 const controlSearch = async () => {
@@ -38,3 +40,6 @@ domElements.pageButtons.addEventListener("click", (e) => {
     searchView.renderRecipes(state.search, gotoPageNumber);
   }
 });
+
+const r = new Recipe(47746);
+r.getRecipe();
