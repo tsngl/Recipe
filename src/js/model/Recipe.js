@@ -20,4 +20,10 @@ export default class Recipe {
 
     console.log(result);
   }
+  calcTime() {
+    this.time = this.ingredients.length * 5;
+  }
+  calcPersonNum() {
+    this.huniiToo = 4;
+  }
 }

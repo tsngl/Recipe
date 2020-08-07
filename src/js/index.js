@@ -6,6 +6,10 @@ import Recipe from "./model/Recipe";
 
 const state = {};
 
+/**
+ * Хайлтын контроллер
+ */
+
 const controlSearch = async () => {
   // 1) Вэбээс хайлтын түлхүүр үгийг гаргаж авна
   const query = searchView.getInput();
@@ -41,5 +45,22 @@ domElements.pageButtons.addEventListener("click", (e) => {
   }
 });
 
-const r = new Recipe(47746);
-r.getRecipe();
+/**
+ * Жорын контроллер
+ */
+
+const controlRecipe = async () => {
+  // 1) URL - с ID -г салгаж авна
+  const id = window.location.hash.replace("#", "");
+  // 2) Жорын моделийг үүсгэж өгнө.
+  state.recipe = new Recipe(id);
+  // 3) UI  дэлгэцийг бэлтгэнэ
+  // 4) Жороо татаж авч ирнэ
+  await state.recipe.getRecipe();
+  // 5) Жорын гүйцэтгэх хугацаа болон орцыг тооцоолно
+  state.recipe.calcTime();
+  state.recipe.calcPersonNum();
+  // 6) Жороо дэлгэцэнд гаргана
+  console.log(state.recipe);
+};
+window.addEventListener("hashchange", controlRecipe);
