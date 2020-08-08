@@ -3,6 +3,7 @@ import Search from "./model/Search";
 import { domElements, renderLoader, clearLoader } from "./view/base";
 import * as searchView from "./view/SearchView";
 import Recipe from "./model/Recipe";
+import { renderRecipe, clearRecipe } from "./view/recipeView";
 
 const state = {};
 
@@ -55,12 +56,16 @@ const controlRecipe = async () => {
   // 2) Жорын моделийг үүсгэж өгнө.
   state.recipe = new Recipe(id);
   // 3) UI  дэлгэцийг бэлтгэнэ
+  clearRecipe();
+  renderLoader(domElements.recipeDiv);
   // 4) Жороо татаж авч ирнэ
   await state.recipe.getRecipe();
   // 5) Жорын гүйцэтгэх хугацаа болон орцыг тооцоолно
+  clearLoader();
   state.recipe.calcTime();
   state.recipe.calcPersonNum();
   // 6) Жороо дэлгэцэнд гаргана
-  console.log(state.recipe);
+  renderRecipe(state.recipe);
 };
 window.addEventListener("hashchange", controlRecipe);
+window.addEventListener("load", controlRecipe);
