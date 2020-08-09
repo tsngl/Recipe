@@ -10,6 +10,14 @@ const renderIngredients = (orts) => `
         </div>
     </li> `;
 
+export const highligthSelectedRecipe = (id) => {
+  const arr = Array.from(document.querySelectorAll(".results__link"));
+  arr.forEach((el) => el.classList.remove("results__link--active"));
+
+  const domObj = document.querySelector(`a[href*="${id}"]`);
+  if (domObj) domObj.classList.add("results__link--active");
+};
+
 export const renderRecipe = (recipe) => {
   const html = `
         <figure class="recipe__fig">
