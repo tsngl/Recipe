@@ -100,9 +100,9 @@ const controlList = async () => {
   // Уг модел руу одоо харагдаж байгаа жорын бүх орцыг хийнэ
   state.recipe.ingredients.forEach((el) => {
     // Тухайн найрлагыг модел руу хийнэ
-    state.list.addItem(el);
+    const item = state.list.addItem(el);
     // Тухайн найрлагыг дэлгэц руу хийнэ
-    listView.renderItem(el);
+    listView.renderItem(item);
   });
 };
 
@@ -110,4 +110,13 @@ domElements.recipeDiv.addEventListener("click", (el) => {
   if (el.target.matches(".recipe__btn , .recipe__btn *")) {
     controlList();
   }
+});
+
+domElements.listDiv.addEventListener("click ", (el) => {
+  // Клик хийсэн листийн itemid -г шүүж олно
+  const id = el.target.closest(".shopping__item").dataset.itemid;
+  // Олдсон ID -тай орцийг моделоос устгана
+  state.list.deleteItem(id);
+  // Мөн дэлгэцнээс устгана
+  listView.deleteItem(id);
 });
