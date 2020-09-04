@@ -72,9 +72,9 @@ export const renderRecipe = (recipe) => {
 
             <div class="recipe__ingredients">
                 <ul class="recipe__ingredient-list">
-                    ${recipe.ingredients.map((el) =>
-                      renderIngredients(el).join(" ")
-                    )}                  
+                    ${recipe.ingredients
+                      .map((el) => renderIngredients(el))
+                      .join(" ")}                  
                 </ul>
 
                 <button class="btn-small recipe__btn">
@@ -104,7 +104,7 @@ export const renderRecipe = (recipe) => {
                 </a>
             </div>
   `;
-  domElements.recipeDiv.insertAdjacentElement("afterbegin", html);
+  domElements.recipeDiv.insertAdjacentHTML("afterbegin", html);
 };
 export const clearRecipe = () => {
   // Одоо дэлгэцэнд харагдаж байгаа жорыг цэвэрлэнэ
